@@ -96,11 +96,7 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
         <StationList stations={loadedStations} />
 
         {/* Infinite Scroll Loader (only on mobile) */}
-        {isMobile && page < totalPages && (
-          <div ref={lastStationRef} className="text-center text-gray-500 py-4">
-            Loading more...
-          </div>
-        )}
+        {isMobile && page < totalPages && <div ref={lastStationRef}></div>}
 
         {/* Pagination for Larger Screens */}
         {!isMobile && (
