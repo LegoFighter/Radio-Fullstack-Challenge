@@ -86,7 +86,7 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
   );
 
   return (
-    <main className="relative min-h-screen bg-fixed bg-center bg-no-repeat bg-cover">
+    <main className="relative min-h-screen">
       <div className="container max-w-[800px] mx-auto p-4">
         {/* Filter Component */}
         <StationFilter

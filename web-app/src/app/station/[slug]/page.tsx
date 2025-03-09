@@ -24,9 +24,5 @@ export default async function StationPage({
     return <div>{TEXT.stationDetailsError.replace("{slug}", slug)}</div>;
   }
 
-  return (
-    <div className="mx-auto p-4">
-      <StationPageClient station={station} />
-    </div>
-  );
+  return <StationPageClient station={station} />;
 }

@@ -24,31 +24,33 @@ export default function StationPageClient({ station }: StationPageClientProps) {
   const hasForbiddenStreams = forbiddenStreams.length > 0;
 
   return (
-    <div>
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
+    <main className="flex min-h-screen items-center justify-center">
+      <div className="container max-w-[800px] mx-auto">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
 
-          <BreadcrumbSeparator />
+            <BreadcrumbSeparator />
 
-          <BreadcrumbItem>
-            <BreadcrumbPage>{station.name}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbPage>{station.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
-      {hasForbiddenStreams && (
-        <Alert variant="destructive" className="mb-4">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>{TEXT.stationPage.streamAccessIssueTitle}</AlertTitle>
-          <AlertDescription>
-            {TEXT.stationPage.streamAccessIssueDescription}
-          </AlertDescription>
-        </Alert>
-      )}
-      <StationCard station={station} />
-    </div>
+        {hasForbiddenStreams && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{TEXT.stationPage.streamAccessIssueTitle}</AlertTitle>
+            <AlertDescription>
+              {TEXT.stationPage.streamAccessIssueDescription}
+            </AlertDescription>
+          </Alert>
+        )}
+        <StationCard station={station} />
+      </div>
+    </main>
   );
 }
