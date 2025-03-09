@@ -6,6 +6,14 @@ import StationCard from "../StationCard";
 import { StationDetails } from "../../types";
 import { useForbiddenStreams } from "../../hooks/useForbiddenStreams";
 import { TEXT } from "@/lib/text";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 
 interface StationPageClientProps {
   station: StationDetails;
@@ -17,6 +25,20 @@ export default function StationPageClient({ station }: StationPageClientProps) {
 
   return (
     <div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbSeparator />
+
+          <BreadcrumbItem>
+            <BreadcrumbPage>{station.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {hasForbiddenStreams && (
         <Alert variant="destructive" className="mb-4">
           <AlertCircle className="h-4 w-4" />
