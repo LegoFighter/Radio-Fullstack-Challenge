@@ -24,31 +24,39 @@ export default function StationPageClient({ station }: StationPageClientProps) {
   const hasForbiddenStreams = forbiddenStreams.length > 0;
 
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <div className="container max-w-[800px] mx-auto">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 p-4">
+      <div className="container max-w-[800px] mx-auto bg-white rounded-lg shadow-lg p-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink
+                href="/"
+                className="text-blue-600 hover:underline"
+              >
+                Home
+              </BreadcrumbLink>
             </BreadcrumbItem>
 
             <BreadcrumbSeparator />
 
             <BreadcrumbItem>
-              <BreadcrumbPage>{station.name}</BreadcrumbPage>
+              <BreadcrumbPage className="font-semibold text-gray-800">
+                {station.name}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         {hasForbiddenStreams && (
           <Alert variant="destructive" className="mb-4">
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="h-5 w-5" />
             <AlertTitle>{TEXT.stationPage.streamAccessIssueTitle}</AlertTitle>
             <AlertDescription>
               {TEXT.stationPage.streamAccessIssueDescription}
             </AlertDescription>
           </Alert>
         )}
+
         <StationCard station={station} />
       </div>
     </main>
