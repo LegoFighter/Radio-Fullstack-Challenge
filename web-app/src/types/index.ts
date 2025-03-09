@@ -1,1 +1,4 @@
-//To be implemented
+export interface IConfig {
+  stationsEndpointUrl: string;
+  revalidateSeconds: number;
+}
