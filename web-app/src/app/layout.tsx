@@ -14,8 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Radio Aggregator",
-  description:
-    "Written by Michal Augustyn Bilinski for the radio.de coding challenge.",
+  description: "Written by Michal Augustyn Bilinski for the radio.de coding challenge.",
 };
 
 export default function RootLayout({
