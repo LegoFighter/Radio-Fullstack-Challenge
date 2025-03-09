@@ -66,7 +66,7 @@ export default function StationFilter({
             <Badge
               key={genre}
               variant="secondary"
-              className="cursor-pointer opacity-60 hover:opacity-80 flex items-center"
+              className="cursor-pointer opacity-60 hover:opacity-80 flex items-center border border-gray-400"
               onClick={() => handleAddGenre(genre)}
             >
               {genre}
