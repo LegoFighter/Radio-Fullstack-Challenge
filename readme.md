@@ -1,6 +1,10 @@
+### Live Version
+
+https://radio-de-challange.vercel.app/
+
 ## Setup
 
-Note: This programm was written on MacOS, so is this setup only MacOS.
+Note: This programm was written on MacOS, so is this MacOS setup only.
 
 Before running everything, some simple steps needs to be made.
 
