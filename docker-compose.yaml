@@ -1,0 +1,22 @@
+services:
+  web-app:
+    image: node:23-bookworm-slim
+    volumes:
+      - ./configs/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./web-app:/usr/src/app
+    environment:
+      VIRTUAL_HOST: "app.radio-aggregator.dev"
+      VIRTUAL_PORT: 3000
+    entrypoint: /docker-entrypoint-initdb.d/init.sh
+
+  reverse-proxy:
+    image: "nginxproxy/nginx-proxy:alpine"
+    volumes:
+      - /etc/nginx/conf.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./data/certs:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web-app
