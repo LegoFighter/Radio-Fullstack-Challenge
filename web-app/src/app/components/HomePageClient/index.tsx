@@ -43,11 +43,6 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
     setPage(1);
   }, [searchQuery, selectedGenres]);
 
-  // Load more stations when page changes
-  useEffect(() => {
-    setLoadedStations(filtered.slice(0, page * count));
-  }, [page, filtered]);
-
   useEffect(() => {
     if (isMobile) {
       // INFINITE SCROLL — accumulate stations
