@@ -13,6 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useIsMobile } from "../../../hook/useIsMobile";
 
 interface HomePageClientProps {
   stations: StationListItem[];
@@ -23,20 +24,12 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [loadedStations, setLoadedStations] = useState<StationListItem[]>([]);
-  const [isMobile, setIsMobile] = useState(false);
+
+  const isMobile = useIsMobile();
   const count = 20;
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Check if the device is mobile
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Memoize filtered stations to prevent re-creation on every render
   const filtered = useMemo(
     () => filteredStations(stations, searchQuery, selectedGenres),
     [stations, searchQuery, selectedGenres]
@@ -93,59 +86,63 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
   );
 
   return (
-    <main className="container max-w-[800px] mx-auto p-4">
-      {/* Filter Component */}
-      <StationFilter
-        stations={stations}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
-      />
+    <main className="relative min-h-screen bg-fixed bg-center bg-no-repeat bg-cover">
+      <div className="container max-w-[800px] mx-auto p-4">
+        {/* Filter Component */}
+        <StationFilter
+          stations={stations}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedGenres={selectedGenres}
+          setSelectedGenres={setSelectedGenres}
+        />
 
-      {/* Station List */}
-      <StationList stations={loadedStations} />
+        {/* Station List */}
+        <StationList stations={loadedStations} />
 
-      {/* Infinite Scroll Loader (only on mobile) */}
-      {isMobile && page < totalPages && (
-        <div ref={lastStationRef} className="text-center text-gray-500 py-4">
-          Loading more...
-        </div>
-      )}
+        {/* Infinite Scroll Loader (only on mobile) */}
+        {isMobile && page < totalPages && (
+          <div ref={lastStationRef} className="text-center text-gray-500 py-4">
+            Loading more...
+          </div>
+        )}
 
-      {/* Pagination for Larger Screens */}
-      {!isMobile && (
-        <Pagination className="mt-6">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={page > 1 ? () => setPage(page - 1) : undefined}
-                className={page === 1 ? "pointer-events-none opacity-50" : ""}
-              />
-            </PaginationItem>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <PaginationItem key={index + 1}>
-                <PaginationLink
-                  isActive={page === index + 1}
-                  onClick={() => setPage(index + 1)}
-                >
-                  {index + 1}
-                </PaginationLink>
+        {/* Pagination for Larger Screens */}
+        {!isMobile && (
+          <Pagination className="mt-6">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={page > 1 ? () => setPage(page - 1) : undefined}
+                  className={`${
+                    page === 1 ? "pointer-events-none opacity-50" : ""
+                  }`}
+                />
               </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={
-                  page < totalPages ? () => setPage(page + 1) : undefined
-                }
-                className={
-                  page === totalPages ? "pointer-events-none opacity-50" : ""
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      )}
+              {Array.from({ length: totalPages }, (_, index) => (
+                <PaginationItem key={index + 1}>
+                  <PaginationLink
+                    isActive={page === index + 1}
+                    onClick={() => setPage(index + 1)}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  onClick={
+                    page < totalPages ? () => setPage(page + 1) : undefined
+                  }
+                  className={`${
+                    page === totalPages ? "pointer-events-none opacity-50" : ""
+                  }`}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
+      </div>
     </main>
   );
 }
