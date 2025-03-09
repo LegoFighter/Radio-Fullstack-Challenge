@@ -8,10 +8,8 @@ export function useIsMobile(threshold = 768) {
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < threshold);
 
-    // Check on mount
     checkMobile();
-
-    // Listen for window resize
+    
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, [threshold]);
