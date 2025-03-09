@@ -81,7 +81,7 @@ export default function HomePageClient({ stations }: HomePageClientProps) {
   );
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="container max-w-[800px] mx-auto p-4">
         {/* Filter Component */}
         <StationFilter
